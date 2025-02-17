@@ -1,0 +1,61 @@
+wandb:
+  project: Hand_Classification
+  notes: "Classification training on synthetic data and testing real data"
+
+train: 
+  shuffle: True
+  learning_rate: 1e-4
+  epoch: 30
+  batch_size: 32
+  num_workers: 2
+  num_classes: 2
+  # If real data: False, False. If sim data: True, False. If coarse data: False, True
+  train_is_sim: True
+  valid_is_sim: False
+  test_is_sim: False
+  train_is_coarse: False
+  valid_is_coarse: False
+  test_is_coarse: False
+
+  
+### For transformations on snapshots and labels
+transforms:
+  # window size and doppler resolution
+  win_size: 128
+  time_win_start: 0
+  resize_doppler: 128
+
+  # For labels
+  label_type: 'pattern'
+  ymap_pattern: {'normal':0, 'texting':1}
+  select_radar_idx: [0, 1]         # Use two radar data 
+  crop_x_ls: [0, 31, 63, 95, 127]  # Crop locations for test data
+  
+
+### For saving the results
+result:
+  network_name: set1_CF_network  # Define your name for saving the experiment
+  name_prefix: SimReal  # SimReal (Training on Sim, Testing on Real), RealReal, SimSim classifications
+  exp_set: 1            # Selecting which set is used to train the conGAN, since other two sets will be used for this classification
+  # Selecting 2 subjects as test subjects from the sets not used to train the conGAN. Other 6 subjects will be used for training this evaluation classifier
+  test_subjects: [0,8]  
+  name: ${result.name_prefix}-${result.network_name}
+  gpu: 0
+  
+  file_list: ../snapshot_set_split.csv
+  # directory to the inferred data
+  inference_data_dir: <your inferred directory>/${result.network_name}/test_latest/images
+  # directory to the MVDoppler real data
+  real_data_dir: ''
+  # directory to save the results
+  path_des: ''
+ 
+  # Whether to return the descriptors for saving
+  return_des_train: False
+  return_des_valid: True
+  return_des_test: True
+
+  # Confusion matrix labels
+  labels: ['Normal', 'Texting']
+  
+  

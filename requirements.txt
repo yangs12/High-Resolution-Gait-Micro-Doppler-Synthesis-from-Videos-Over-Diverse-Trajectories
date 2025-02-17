@@ -1,0 +1,12 @@
+numpy
+matplotlib
+wandb
+torch
+torchvision
+tqdm
+pandas
+dominate
+visdom==0.1.6.3
+h5py
+scikit-learn
+hydra-core
