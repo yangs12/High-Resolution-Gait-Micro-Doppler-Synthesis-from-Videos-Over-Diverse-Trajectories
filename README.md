@@ -32,15 +32,15 @@ The code structure will be
 * Download `snapshot_set_split.csv` and put into this repository (`High-Resolution-Gait-Micro-Doppler-Synthesis-from-Videos-Over-Diverse-Trajectories/snapshot_set_split.csv`). 
 This file is generated from MVDoppler dataset, containing metadata, e.g., file name, descriptions, set information.
 
-- exp_fname: episode name 
-- fname: snapshot name
-- length: signature of length 256 Doppler bins (1.28 seconds)
-- pattern: activity class, e.g., normal walking and texting
-- sex: subject sex
-- age: subject age
-- height: subject height
-- set: set number. The data from MVDoppler is splitted into three sets for cross-subject validation, with each set having 4 subjects.
-- test_subject: Flag that if this snapshot is used for testing the simulator. `1` means it is in test set, and `2` means it is in validation set. `0` means this snapshot is an augmented copy to keep the training data balanced, thus not used in test or validation.
+  - exp_fname: episode name 
+  - fname: snapshot name
+  - length: signature of length 256 Doppler bins (1.28 seconds)
+  - pattern: activity class, e.g., normal walking and texting
+  - sex: subject sex
+  - age: subject age
+  - height: subject height
+  - set: set number. The data from MVDoppler is splitted into three sets for cross-subject validation, with each set having 4 subjects.
+  - test_subject: Flag that if this snapshot is used for testing the simulator. `1` means it is in test set, and `2` means it is in validation set. `0` means this snapshot is an augmented copy to keep the training data balanced, thus not used in test or validation.
 
 * Download MVDoppler dataset. This will be used in training and testing the evaluation classifier (e.g., training on synthetic data and testing on real data). The directory to MVDoppler dataset needs to specified in `real_data_dir` in `classification/conf/config_classification.yaml`.
 
