@@ -89,3 +89,6 @@ This paper is accepted by ICASSP 2025, If you use this code for your research, p
 
 ## Acknowledgments
 This project heavily uses code from [pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix.git) and data from [MVDoppler](https://mvdoppler.github.io/)
+
+## License
+The dataset is published under the CC BY-NC-ND License, and all codes are published under the Apache License 2.0.
