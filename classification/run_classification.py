@@ -24,7 +24,6 @@ def main(args: DictConfig) -> None:
     # Initialize wandb project
     wandb.init(
         project = args.wandb.project, 
-        entity = "shuboy", 
         config = config, 
         notes = args.wandb.notes,
         name = args.result.name,
