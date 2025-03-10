@@ -33,15 +33,19 @@ def main(args: DictConfig) -> None:
 
     model = MyMobileNet(num_classes=args.train.num_classes)
     
-    ### Training
-    trainer = Trainer(model=model, 
-                    data_train=data_train, 
-                    data_valid=data_valid, 
-                    data_test=data_test, 
-                    args=args, 
-                    device=device,
-                    )
-    trainer.train()
+    if args.train.if_inf:
+        model.load_state_dict(torch.load(args.result.inf_model_path, weights_only=True))
+        model.eval()
+    else:
+        ### Training
+        trainer = Trainer(model=model, 
+                        data_train=data_train, 
+                        data_valid=data_valid, 
+                        data_test=data_test, 
+                        args=args, 
+                        device=device,
+                        )
+        trainer.train()
 
     ### Saving results for validation and test sets
     print('saving validation and test results---')

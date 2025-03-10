@@ -3,6 +3,7 @@ wandb:
   notes: "Classification training on synthetic data and testing real data"
 
 train: 
+  if_inf: False
   shuffle: True
   learning_rate: 1e-4
   epoch: 30
@@ -34,6 +35,9 @@ transforms:
 
 ### For saving the results
 result:
+  eval_exp_num: 1       # The evaluation classifier experiment number
+  inf_model_folder:     # your path to the trained evaluation classifier model
+  inf_model_path: ${result.inf_model_folder}modelSimReal-${result.network_name}-Eval${result.eval_exp_num}.pt
   network_name: set1_CF_network  # Define your name for saving the experiment
   name_prefix: SimReal  # SimReal (Training on Sim, Testing on Real), RealReal, SimSim classifications
   exp_set: 1            # Selecting which set is used to train the conGAN, since other two sets will be used for this classification

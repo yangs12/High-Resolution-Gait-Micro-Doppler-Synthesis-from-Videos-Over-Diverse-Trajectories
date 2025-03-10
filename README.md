@@ -75,6 +75,28 @@ python run_classification.py
 ```
 The configurations are in `classification/conf/conf_classification.yaml`. You need to pecifiy the directories in the .yaml file, e.g., the directory saving all the inferred data.
 
+## Model Inference and Checkpoints
+### Inference of the conditional GAN
+Since we implemented three-fold cross-validation, we trained three conditional GAN on three folds. The checkpoints of the network on first fold (set1) can be found <a href="https://drive.google.com/drive/folders/1-WcWbp9jiQaMMYGYxy7UYuBqHI5T65HD?usp=sharing"> here </a> as `set1_CF_checkpoint.zip`.
+
+The inference on the conditional GAN can follow [the testing section](#training-and-testing-the-conditional-gan).
+
+The inferred images for fold 1 can be found in the Google Drive folder as `set1_CF_inferred_images.zip`.
+
+### Evaluation Classifier Inference
+We implemented cross-subject experiments, training on 6 subjects and testing on 2 unseen subjects. Therefore, there are 4 evaluation classifiers trained for each trained conditional GAN. The checkpoints of the evaluation classifiers to evaluate conditional GAN trained on fold 1 are in `eval_classifier_checkpoints.zip`
+
+To directly do inference using the trained evaluation classifiers, you need to change the config file:
+1. In `config_classification.yaml` file, set `train.if_inf: True`. 
+2. Specify the `result.inf_model_folder` and `result.inf_model_path` in the config.
+3. `result.eval_exp_num` means the evaluation classifier experiment number.
+
+For each training or inference evaluation classifier, you can specify the `result.test_subjects` in the command as 
+```
+python run_classification.py result.test_subjects=[11,7] result.eval_exp_num=1
+```
+For the four evaluation classifiers for conditional GAN trained on fold 1, we utilize pairs of subjects [11,7], [12,9], [0,8], and [3,6] as the unseen test subjects.
+
 ## Citation
 This paper is accepted by ICASSP 2025, If you use this code for your research, please cite our paper (later will be updated by the citation of published version)
 ```
