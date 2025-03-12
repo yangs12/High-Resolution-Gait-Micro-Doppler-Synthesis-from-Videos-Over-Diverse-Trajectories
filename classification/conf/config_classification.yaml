@@ -37,13 +37,13 @@ transforms:
 result:
   eval_exp_num: 1       # The evaluation classifier experiment number
   inf_model_folder:     # your path to the trained evaluation classifier model
-  inf_model_path: ${result.inf_model_folder}modelSimReal-${result.network_name}-Eval${result.eval_exp_num}.pt
+  inf_model_path: ${result.inf_model_folder}model${result.name_prefix}-${result.network_name}_Eval${result.eval_exp_num}.pt
   network_name: set1_CF_network  # Define your name for saving the experiment
   name_prefix: SimReal  # SimReal (Training on Sim, Testing on Real), RealReal, SimSim classifications
   exp_set: 1            # Selecting which set is used to train the conGAN, since other two sets will be used for this classification
   # Selecting 2 subjects as test subjects from the sets not used to train the conGAN. Other 6 subjects will be used for training this evaluation classifier
   test_subjects: [0,8]  
-  name: ${result.name_prefix}-${result.network_name}
+  name: ${result.name_prefix}-${result.network_name}-Eval${result.eval_exp_num}
   gpu: 0
   
   file_list: ../snapshot_set_split.csv

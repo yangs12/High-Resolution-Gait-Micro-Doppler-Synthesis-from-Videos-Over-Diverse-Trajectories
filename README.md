@@ -77,36 +77,43 @@ The configurations are in `classification/conf/conf_classification.yaml`. You ne
 
 ## Model Inference and Checkpoints
 ### Inference of the conditional GAN
-Since we implemented three-fold cross-validation, we trained three conditional GAN on three folds. The checkpoints of the network on first fold (set1) can be found <a href="https://drive.google.com/drive/folders/1-WcWbp9jiQaMMYGYxy7UYuBqHI5T65HD?usp=sharing"> here </a> as `set1_CF_checkpoint.zip`.
+Since we implemented three-fold cross-validation, we trained three conditional GAN on three folds. The checkpoints of the networks can be found <a href="https://drive.google.com/drive/folders/1-WcWbp9jiQaMMYGYxy7UYuBqHI5T65HD?usp=sharing"> here </a> as `GAN_checkpoints.zip`.
 
 The inference on the conditional GAN can follow [the testing section](#training-and-testing-the-conditional-gan).
 
-The inferred images for fold 1 can be found in the Google Drive folder as `set1_CF_inferred_images.zip`.
+The inferred images can be found in the Google Drive folder as `inferred_images.zip`.
 
 ### Evaluation Classifier Inference
-We implemented cross-subject experiments, training on 6 subjects and testing on 2 unseen subjects. Therefore, there are 4 evaluation classifiers trained for each trained conditional GAN. The checkpoints of the evaluation classifiers to evaluate conditional GAN trained on fold 1 are in `eval_classifier_checkpoints.zip`
+We implemented cross-subject experiments, training on 6 subjects and testing on 2 unseen subjects. Therefore, there are 4 evaluation classifiers trained for each conditional GAN. The checkpoints of the evaluation classifiers to evaluate conditional GAN are in `eval_classifier_checkpoints.zip`. The `SimReal` checkpoints are evaluation networks trained on simulation data and tested on real data. Similarly, `RealReal` are trained and tested on real data.
 
 To directly do inference using the trained evaluation classifiers, you need to change the config file:
 1. In `config_classification.yaml` file, set `train.if_inf: True`. 
 2. Specify the `result.inf_model_folder` and `result.inf_model_path` in the config.
 3. `result.eval_exp_num` means the evaluation classifier experiment number.
+4. `result.name_prefix` specifies `RealReal` experiment or `SimReal` experiment.
 
 For each training or inference evaluation classifier, you can specify the `result.test_subjects` in the command as 
 ```
-python run_classification.py result.test_subjects=[11,7] result.eval_exp_num=1
+python run_classification.py result.exp_set=1 result.name_prefix=RealReal result.test_subjects=[11,7] result.eval_exp_num=1 result.network_name=set1_CF_network
 ```
-For the four evaluation classifiers for conditional GAN trained on fold 1, we utilize pairs of subjects [11,7], [12,9], [0,8], and [3,6] as the unseen test subjects.
+For our experiments, our test_subjects splits (The unseen subjects to test the eval classifiers) are:
+* Fold 1 test subject pairs: [11,7], [12,9], [0,8], [3,6]
+* Fold 2 test subject pairs: [10,5], [12,0], [1,6], [2,8]
+* Fold 3 test subject pairs: [10,5], [3,2], [11,7], [9,1]
 
 ## Citation
-This paper is accepted by ICASSP 2025, If you use this code for your research, please cite our paper (later will be updated by the citation of published version)
+This paper is accepted by ICASSP 2025, If you use this code for your research, please cite our paper
 ```
-@article{yang2025high-resolution,
-  title={High-Resolution Gait Micro-Doppler Synthesis from Videos Over Diverse Trajectories},
-  author={Shubo Yang, Soheil Hor, Jae-Ho Choi, Amin Arbabian},
-  booktitle={ICASSP 2025-2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+@INPROCEEDINGS{10888938,
+  author={Yang, Shubo and Hor, Soheil and Choi, Jae-Ho and Arbabian, Amin},
+  booktitle={ICASSP 2025 - 2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={High-Resolution Gait Micro-Doppler Synthesis from Videos Over Diverse Trajectories}, 
   year={2025},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={1-5},
+  keywords={Legged locomotion;Torso;Hands;Pedestrians;Millimeter wave measurements;Trajectory;Doppler effect;Millimeter wave communication;Motion analysis;Videos;Synthetic Data;Gait Analysis;Generative Models;Doppler Imaging;Millimeter-wave Imaging},
+  doi={10.1109/ICASSP49660.2025.10888938}}
 ```
 
 ## Acknowledgments
